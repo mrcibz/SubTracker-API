@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm start:dev)",
+      "Bash(pnpm exec *)",
+      "PowerShell(pnpm exec *)",
+      "Bash(echo \"---EXIT=$?---\")",
+      "Bash(pnpm add *)",
+      "Bash(rm -rf dist)",
+      "Bash(rm -f tsconfig.build.tsbuildinfo dist/tsconfig.build.tsbuildinfo *.tsbuildinfo)",
+      "Bash(rm -f tsconfig.build.tsbuildinfo)"
+    ]
+  }
+}
