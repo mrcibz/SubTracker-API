@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./docs/banner.png" alt="SubTracker banner" width="600" />
+  <img src="./nest-logo.svg" alt="NestJS logo" width="120" />
 </p>
 
 # SubTracker API
