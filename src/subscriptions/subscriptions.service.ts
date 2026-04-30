@@ -16,15 +16,14 @@ export class SubscriptionsService {
       })
       return subscription;
   } catch (error) {
-      console.error('AQUIIIIIIIIIIIIIIIIII  Error creating subscription:', error);
       throw new InternalServerErrorException(
         'Error de base de datos al intentar crear la suscripción.'
       );
     } 
   }
 
-  findAll() {
-    return `This action returns all subscriptions`;
+  async findAll() {
+    
   }
 
   findOne(id: number) {

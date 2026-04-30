@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Header } from '@nestjs/common';
 import { SubscriptionsService } from './subscriptions.service';
 import { CreateSubscriptionDto } from './dto/create-subscription.dto';
 import { UpdateSubscriptionDto } from './dto/update-subscription.dto';
@@ -8,8 +8,13 @@ export class SubscriptionsController {
   constructor(private readonly subscriptionsService: SubscriptionsService) {}
 
   @Post()
-  create(@Body() createSubscriptionDto: CreateSubscriptionDto) {
-    return this.subscriptionsService.create(createSubscriptionDto);
+  @Header('Content-Type', 'application/json')
+  async create(@Body() createSubscriptionDto: CreateSubscriptionDto) {
+    const subscription = await this.subscriptionsService.create(createSubscriptionDto);
+    return JSON.stringify({
+      message: 'Subscription created successfully',
+      subscription
+    })
   }
 
   @Get()

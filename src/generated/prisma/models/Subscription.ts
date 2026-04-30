@@ -27,15 +27,17 @@ export type AggregateSubscription = {
 }
 
 export type SubscriptionAvgAggregateOutputType = {
+  id: number | null
   price: number | null
 }
 
 export type SubscriptionSumAggregateOutputType = {
+  id: number | null
   price: number | null
 }
 
 export type SubscriptionMinAggregateOutputType = {
-  id: string | null
+  id: number | null
   name: string | null
   price: number | null
   currency: string | null
@@ -46,7 +48,7 @@ export type SubscriptionMinAggregateOutputType = {
 }
 
 export type SubscriptionMaxAggregateOutputType = {
-  id: string | null
+  id: number | null
   name: string | null
   price: number | null
   currency: string | null
@@ -70,10 +72,12 @@ export type SubscriptionCountAggregateOutputType = {
 
 
 export type SubscriptionAvgAggregateInputType = {
+  id?: true
   price?: true
 }
 
 export type SubscriptionSumAggregateInputType = {
+  id?: true
   price?: true
 }
 
@@ -198,7 +202,7 @@ export type SubscriptionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 export type SubscriptionGroupByOutputType = {
-  id: string
+  id: number
   name: string
   price: number
   currency: string
@@ -232,7 +236,7 @@ export type SubscriptionWhereInput = {
   AND?: Prisma.SubscriptionWhereInput | Prisma.SubscriptionWhereInput[]
   OR?: Prisma.SubscriptionWhereInput[]
   NOT?: Prisma.SubscriptionWhereInput | Prisma.SubscriptionWhereInput[]
-  id?: Prisma.StringFilter<"Subscription"> | string
+  id?: Prisma.IntFilter<"Subscription"> | number
   name?: Prisma.StringFilter<"Subscription"> | string
   price?: Prisma.FloatFilter<"Subscription"> | number
   currency?: Prisma.StringFilter<"Subscription"> | string
@@ -254,7 +258,7 @@ export type SubscriptionOrderByWithRelationInput = {
 }
 
 export type SubscriptionWhereUniqueInput = Prisma.AtLeast<{
-  id?: string
+  id?: number
   AND?: Prisma.SubscriptionWhereInput | Prisma.SubscriptionWhereInput[]
   OR?: Prisma.SubscriptionWhereInput[]
   NOT?: Prisma.SubscriptionWhereInput | Prisma.SubscriptionWhereInput[]
@@ -287,7 +291,7 @@ export type SubscriptionScalarWhereWithAggregatesInput = {
   AND?: Prisma.SubscriptionScalarWhereWithAggregatesInput | Prisma.SubscriptionScalarWhereWithAggregatesInput[]
   OR?: Prisma.SubscriptionScalarWhereWithAggregatesInput[]
   NOT?: Prisma.SubscriptionScalarWhereWithAggregatesInput | Prisma.SubscriptionScalarWhereWithAggregatesInput[]
-  id?: Prisma.StringWithAggregatesFilter<"Subscription"> | string
+  id?: Prisma.IntWithAggregatesFilter<"Subscription"> | number
   name?: Prisma.StringWithAggregatesFilter<"Subscription"> | string
   price?: Prisma.FloatWithAggregatesFilter<"Subscription"> | number
   currency?: Prisma.StringWithAggregatesFilter<"Subscription"> | string
@@ -298,7 +302,6 @@ export type SubscriptionScalarWhereWithAggregatesInput = {
 }
 
 export type SubscriptionCreateInput = {
-  id?: string
   name: string
   price: number
   currency: string
@@ -309,7 +312,7 @@ export type SubscriptionCreateInput = {
 }
 
 export type SubscriptionUncheckedCreateInput = {
-  id?: string
+  id?: number
   name: string
   price: number
   currency: string
@@ -320,7 +323,6 @@ export type SubscriptionUncheckedCreateInput = {
 }
 
 export type SubscriptionUpdateInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -331,7 +333,7 @@ export type SubscriptionUpdateInput = {
 }
 
 export type SubscriptionUncheckedUpdateInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -342,7 +344,7 @@ export type SubscriptionUncheckedUpdateInput = {
 }
 
 export type SubscriptionCreateManyInput = {
-  id?: string
+  id?: number
   name: string
   price: number
   currency: string
@@ -353,7 +355,6 @@ export type SubscriptionCreateManyInput = {
 }
 
 export type SubscriptionUpdateManyMutationInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -364,7 +365,7 @@ export type SubscriptionUpdateManyMutationInput = {
 }
 
 export type SubscriptionUncheckedUpdateManyInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -386,6 +387,7 @@ export type SubscriptionCountOrderByAggregateInput = {
 }
 
 export type SubscriptionAvgOrderByAggregateInput = {
+  id?: Prisma.SortOrder
   price?: Prisma.SortOrder
 }
 
@@ -412,6 +414,7 @@ export type SubscriptionMinOrderByAggregateInput = {
 }
 
 export type SubscriptionSumOrderByAggregateInput = {
+  id?: Prisma.SortOrder
   price?: Prisma.SortOrder
 }
 
@@ -437,6 +440,14 @@ export type DateTimeFieldUpdateOperationsInput = {
 
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 
@@ -491,7 +502,7 @@ export type $SubscriptionPayload<ExtArgs extends runtime.Types.Extensions.Intern
   name: "Subscription"
   objects: {}
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: string
+    id: number
     name: string
     price: number
     currency: string
@@ -922,7 +933,7 @@ export interface Prisma__SubscriptionClient<T, Null = never, ExtArgs extends run
  * Fields of the Subscription model
  */
 export interface SubscriptionFieldRefs {
-  readonly id: Prisma.FieldRef<"Subscription", 'String'>
+  readonly id: Prisma.FieldRef<"Subscription", 'Int'>
   readonly name: Prisma.FieldRef<"Subscription", 'String'>
   readonly price: Prisma.FieldRef<"Subscription", 'Float'>
   readonly currency: Prisma.FieldRef<"Subscription", 'String'>
