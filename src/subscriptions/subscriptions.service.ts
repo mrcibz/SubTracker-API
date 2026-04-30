@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CreateSubscriptionDto } from './dto/create-subscription.dto';
 import { UpdateSubscriptionDto } from './dto/update-subscription.dto';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from '../prisma.service';
 
 
 @Injectable()
@@ -9,8 +9,18 @@ export class SubscriptionsService {
 
   constructor(private prisma: PrismaService) {}
 
-  create(createSubscriptionDto: CreateSubscriptionDto) { 
-    return 'This action adds a new subscription';
+  async create(createSubscriptionDto: CreateSubscriptionDto) { 
+    try  {
+      const subscription = await this.prisma.subscription.create({
+        data: createSubscriptionDto
+      })
+      return subscription;
+  } catch (error) {
+      console.error('AQUIIIIIIIIIIIIIIIIII  Error creating subscription:', error);
+      throw new InternalServerErrorException(
+        'Error de base de datos al intentar crear la suscripción.'
+      );
+    } 
   }
 
   findAll() {

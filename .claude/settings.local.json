@@ -8,7 +8,11 @@
       "Bash(pnpm add *)",
       "Bash(rm -rf dist)",
       "Bash(rm -f tsconfig.build.tsbuildinfo dist/tsconfig.build.tsbuildinfo *.tsbuildinfo)",
-      "Bash(rm -f tsconfig.build.tsbuildinfo)"
+      "Bash(rm -f tsconfig.build.tsbuildinfo)",
+      "Bash(xxd)",
+      "Bash(tee /tmp/devlog.txt)",
+      "Read(//tmp/**)",
+      "Bash(npx prisma *)"
     ]
   }
 }
