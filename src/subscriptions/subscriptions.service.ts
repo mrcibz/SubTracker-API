@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { CreateSubscriptionDto } from './dto/create-subscription.dto';
 import { UpdateSubscriptionDto } from './dto/update-subscription.dto';
 import { PrismaService } from '../prisma.service';
@@ -16,6 +16,7 @@ export class SubscriptionsService {
       })
       return subscription;
   } catch (error) {
+      console.log(error); 
       throw new InternalServerErrorException(
         'Error de base de datos al intentar crear la suscripción.'
       );
@@ -26,8 +27,24 @@ export class SubscriptionsService {
     
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} subscription`;
+  async findOne(id: number) {
+    try {
+      const subscription = await this.prisma.subscription.findUnique({
+        where: { id }
+      });
+      
+      if (!subscription) {
+        throw new NotFoundException(`Subscription with ID ${id} not found.`);
+      }
+      return JSON.stringify(subscription);
+    } catch (error) {
+      if(error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException(
+        'Error de base de datos al intentar encontrar la suscripción.'
+      );
+    }
   }
 
   update(id: number, updateSubscriptionDto: UpdateSubscriptionDto) {
