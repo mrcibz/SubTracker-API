@@ -18,7 +18,7 @@ export class SubscriptionsService {
   } catch (error) {
       console.log(error); 
       throw new InternalServerErrorException(
-        'Error de base de datos al intentar crear la suscripción.'
+        'DB error, could not create subscription.'
       );
     } 
   }
@@ -42,16 +42,49 @@ export class SubscriptionsService {
         throw error;
       }
       throw new InternalServerErrorException(
-        'Error de base de datos al intentar encontrar la suscripción.'
+        'DB error, could not retrieve subscription.'
       );
     }
   }
 
-  update(id: number, updateSubscriptionDto: UpdateSubscriptionDto) {
-    return `This action updates a #${id} subscription`;
+  async update(id: number, updateSubscriptionDto: UpdateSubscriptionDto) {
+    try {
+      const updatedSubscription = await this.prisma.subscription.update({
+        where: { id },
+        data: updateSubscriptionDto
+      });
+      return {
+        message: 'Subscription updated successfully',
+        subscription: updatedSubscription
+      };
+    } catch (error) {
+      if(error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException(
+        'DB error, could not update subscription.'
+      );
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} subscription`;
+  async remove(id: number) {
+    try {
+      const deletedSubscription = await this.prisma.subscription.delete({
+        where: { id }
+      });
+      if (!deletedSubscription) {
+        throw new NotFoundException(`Subscription with ID ${id} not found.`);
+      }
+      return {
+        message: 'Subscription deleted successfully',
+        subscription: deletedSubscription
+      };
+    } catch (error) {
+      if(error instanceof NotFoundException) {
+        throw error;
+      } else {
+        throw new InternalServerErrorException("DB error, could not delete subscription.");
+      }
+    }
   }
 }

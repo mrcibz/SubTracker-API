@@ -1,4 +1,4 @@
-import { IsString, IsInt, IsNumber, IsPositive, IsOptional } from 'class-validator';
+import { IsString, IsInt, IsNumber, IsPositive, IsOptional, IsIn } from 'class-validator';
 
 export class CreateSubscriptionDto {
 
@@ -14,5 +14,6 @@ export class CreateSubscriptionDto {
 
     @IsString()
     @IsOptional()
+    @IsIn(['monthly', 'yearly'], {message: 'billingCycle must be either "monthly" or "yearly"'})
     billingCycle: 'monthly' | 'yearly';
 }

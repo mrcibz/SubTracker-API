@@ -29,12 +29,12 @@ export class SubscriptionsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSubscriptionDto: UpdateSubscriptionDto) {
-    return this.subscriptionsService.update(+id, updateSubscriptionDto);
+  update(@Param('id', new ParseIntPipe({exceptionFactory: (error) => {return new BadRequestException("Invalid ID format")}})) id: number, @Body() updateSubscriptionDto: UpdateSubscriptionDto) {
+    return this.subscriptionsService.update(id, updateSubscriptionDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.subscriptionsService.remove(+id);
+  remove(@Param('id', new ParseIntPipe({exceptionFactory: (error) => {return new BadRequestException("Invalid ID format")}})) id: number) {
+    return this.subscriptionsService.remove(id);
   }
 }
