@@ -11,10 +11,10 @@ export class SubscriptionsController {
   @Post()
   async create(@Body() createSubscriptionDto: CreateSubscriptionDto) {
     const subscription = await this.subscriptionsService.create(createSubscriptionDto);
-    return JSON.stringify({
+    return {
       message: 'Subscription created successfully',
       subscription
-    })
+    };
   }
 
   @Get()
@@ -23,7 +23,6 @@ export class SubscriptionsController {
   }
 
   @Get(':id')
-  @Header('Content-Type', 'application/json')
   findOne(@Param('id', new ParseIntPipe({exceptionFactory: (error) => {return new BadRequestException("Invalid ID format")}})) id: number) {
     
     return this.subscriptionsService.findOne(id);

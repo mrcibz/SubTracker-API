@@ -36,7 +36,7 @@ export class SubscriptionsService {
       if (!subscription) {
         throw new NotFoundException(`Subscription with ID ${id} not found.`);
       }
-      return JSON.stringify(subscription);
+      return subscription
     } catch (error) {
       if(error instanceof NotFoundException) {
         throw error;
