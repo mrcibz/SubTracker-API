@@ -24,7 +24,13 @@ export class SubscriptionsService {
   }
 
   async findAll() {
-    
+    try {
+      return await this.prisma.subscription.findMany();
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'DB error, could not retrieve subscriptions.'
+      );
+    }
   }
 
   async findOne(id: number) {

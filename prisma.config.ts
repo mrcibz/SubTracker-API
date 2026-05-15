@@ -12,3 +12,6 @@ export default defineConfig({
     url: process.env["DIRECT_URL"],
   },
 });
+
+console.log("Database url:", process.env["DIRECT_URL"]);
+console.log("Database url (from env):", process.env.DATABASE_URL);
