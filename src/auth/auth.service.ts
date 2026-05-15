@@ -12,12 +12,13 @@ export class AuthService {
 
     async signIn(username: string, pass: string): Promise<any> {
         const user = await this.usersService.findOne(username);
+        console.log("the user is:",user);
         if(user?.password != pass) {
             throw new UnauthorizedException();
         }
         // sub significa subject, hace referencia a quien identifica este token
         
-        const payload =  {sub: user.userId, username: user.username};
+        const payload =  {sub: user.userId, username: user.username, roles: user.roles};
         return {
              // 💡 Here the JWT secret key that's used for signing the payload 
             // is the key that was passed in the JwtModule
